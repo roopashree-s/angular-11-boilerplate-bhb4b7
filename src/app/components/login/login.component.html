@@ -1,0 +1,50 @@
+<div class="navbar-nav ml-auto action-buttons" *ngIf="!isLoggedIn">
+  <div class="nav-item dropdown">
+    <a
+      href="#"
+      data-toggle="dropdown"
+      class="nav-link dropdown-toggle"
+      aria-expanded="false"
+      >Login</a
+    >
+    <div class="dropdown-menu action-form p-2">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            formControlName="username"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          />
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-primary btn-block" value="Login" />
+        <div class="text-center mt-2">
+          <a href="#">{{errorMsg}}</a>
+        </div>
+        <app-spinner></app-spinner>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="nav-item" *ngIf="isLoggedIn">
+  <a class="nav-link" style="width: max-content" href="javascript:void(0)" (click)="logout()"
+    >Loggedin as <b>{{user.username}}</b> Logout</a
+  >
+</div>
